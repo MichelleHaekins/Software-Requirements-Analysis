@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter 1: What is Business Analysis?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            overflow: hidden;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 60px;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            color: #ffd700;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #ffed4e;
+        }
+
+        .content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .title-slide .content {
+            text-align: center;
+        }
+
+        ul {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        ul li:before {
+            content: "▶";
+            color: #ffd700;
+            position: absolute;
+            left: 0;
+            font-size: 1rem;
+        }
+
+        p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+            background: rgba(0,0,0,0.3);
+            padding: 15px 25px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #764ba2, #667eea);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .definition-box {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid #ffd700;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+
+        .model-diagram {
+            background: rgba(255,255,255,0.95);
+            color: #333;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .diagram-circle {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .diagram-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px 20px;
+            }
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.5rem; }
+            ul, p { font-size: 1.1rem; }
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <div class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">15</span>
+        </div>
+
+        <!-- Slide 1: Title -->
+        <div class="slide active title-slide">
+            <div class="content">
+                <h1>What is Business Analysis?</h1>
+                <h3>Understanding the Discipline, Role, and Value</h3>
+                <p style="font-size: 1.5rem; margin-top: 40px; text-align: center;">Chapter 1: Foundations of Business Analysis</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Introduction & Purpose -->
+        <div class="slide">
+            <div class="content">
+                <h2>Introduction & Purpose</h2>
+                <ul>
+                    <li>Business Analysis has evolved over the last two decades</li>
+                    <li>Ensures alignment between <span class="highlight">business needs</span> and <span class="highlight">business change solutions</span></li>
+                    <li>Solutions extend beyond IT systems to include:</li>
+                    <ul style="margin-left: 30px; margin-top: 10px;">
+                        <li>Business process changes</li>
+                        <li>Job role modifications</li>
+                        <li>Organizational restructuring</li>
+                    </ul>
+                    <li>Addresses the persistent lack of clarity about the BA role</li>
+                    <li>Provides guidance reflecting the breadth and range of BA techniques</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 3: Key Problems Addressed -->
+        <div class="slide">
+            <div class="content">
+                <h2>Key Problems in Business Analysis</h2>
+                <ul>
+                    <li><strong>Requirements Documentation Focus:</strong> Drive towards documenting requirements without clear understanding of desired business outcomes</li>
+                    <li><strong>IT Background Limitations:</strong> Former systems analysts less comfortable considering business requirements and solution options</li>
+                    <li><strong>Business Background Limitations:</strong> Limited IT understanding causing communication difficulties with developers</li>
+                    <li><strong>Underutilized Expertise:</strong> Organizations rejecting valuable BA advice due to lack of role understanding</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 4: Origins of Business Analysis -->
+        <div class="slide">
+            <div class="content">
+                <h2>Origins of Business Analysis</h2>
+                <div class="two-column">
+                    <div>
+                        <h3>Historical Context</h3>
+                        <ul>
+                            <li>IT enabled improved business operations and decision-making</li>
+                            <li>Shift from operational focus to new services and products</li>
+                            <li>Technology enabled new business models and global operations</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Current Challenges</h3>
+                        <ul>
+                            <li>Growing dissatisfaction with IT support</li>
+                            <li>IT investment often fails to deliver required business benefit</li>
+                            <li>Poor communication between business and technical experts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Development Drivers -->
+        <div class="slide">
+            <div class="content">
+                <h2>Key Development Drivers</h2>
+                <div class="definition-box">
+                    <h3>1. Impact of Outsourcing</h3>
+                    <p>Need for better communication between business and external development teams, especially with geographical distance</p>
+                </div>
+                <div class="definition-box">
+                    <h3>2. Competitive Advantage Through IT</h3>
+                    <p>Three critical factors: business needs drive IT development, implementation accompanied by business changes, rigorous requirements definition</p>
+                </div>
+                <div class="definition-box">
+                    <h3>3. Business Change Programs</h3>
+                    <p>Evolution from IT projects to broader business change initiatives requiring specialized roles and skills</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Business Change Lifecycle -->
+        <div class="slide">
+            <div class="content">
+                <h2>Business Change Lifecycle</h2>
+                <div class="model-diagram">
+                    <div class="diagram-container">
+                        <div class="diagram-circle">Alignment</div>
+                        <div class="diagram-circle">Definition</div>
+                        <div class="diagram-circle">Design</div>
+                        <div class="diagram-circle">Implementation</div>
+                        <div class="diagram-circle">Realisation</div>
+                    </div>
+                    <p><strong>Early stages (Alignment & Definition):</strong> Analysis of organization, business needs, and requirements to determine new ways of working</p>
+                    <p><strong>Later stages:</strong> Change design, development, testing, and post-implementation benefits review</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Business Analysts as Internal Consultants -->
+        <div class="slide">
+            <div class="content">
+                <h2>Business Analysts as Internal Consultants</h2>
+                <div class="two-column">
+                    <div>
+                        <h3>Advantages over External Consultants</h3>
+                        <ul>
+                            <li><strong>Cost:</strong> Lower daily rates</li>
+                            <li><strong>Speed:</strong> No learning curve about the organization</li>
+                            <li><strong>Knowledge Retention:</strong> Skills remain within organization</li>
+                            <li><strong>Accountability:</strong> Must live with impact of recommendations</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Business Domain Expertise</h3>
+                        <ul>
+                            <li>Deep understanding of organizational context</li>
+                            <li>Long-term investment in solutions</li>
+                            <li>Continuous relationship building</li>
+                            <li>Sustained value delivery</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Scope of Business Analysis Work -->
+        <div class="slide">
+            <div class="content">
+                <h2>The Range of Analysis Activities</h2>
+                <div class="model-diagram">
+                    <h3 style="color: #333;">Three Overlapping Areas</h3>
+                    <div class="diagram-container">
+                        <div class="diagram-circle" style="background: linear-gradient(135deg, #ff6b6b, #ee5a24);">Strategic Analysis</div>
+                        <div class="diagram-circle" style="background: linear-gradient(135deg, #4834d4, #686de0);">Business Analysis</div>
+                        <div class="diagram-circle" style="background: linear-gradient(135deg, #00d2d3, #54a0ff);">IT Systems Analysis</div>
+                    </div>
+                    <p><strong>Business Analysis bridges the gap</strong> between high-level strategy and detailed IT implementation</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Strategic Analysis -->
+        <div class="slide">
+            <div class="content">
+                <h2>Strategic Analysis & Definition</h2>
+                <ul>
+                    <li><strong>Primary Responsibility:</strong> Senior management and strategy consultants</li>
+                    <li><strong>BA Role:</strong> Supporting strategic activities rather than leading them</li>
+                    <li><strong>Key Requirements for BAs:</strong></li>
+                    <ul style="margin-left: 30px; margin-top: 10px;">
+                        <li>Access to business strategy information</li>
+                        <li>Understanding of strategic context</li>
+                        <li>Ability to design tactics that deliver business objectives</li>
+                        <li>Expertise in technology opportunities for business improvement</li>
+                    </ul>
+                    <li><strong>Focus:</strong> Recommend process and IT solutions that support strategy execution</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 10: IT Systems Analysis -->
+        <div class="slide">
+            <div class="content">
+                <h2>IT Systems Analysis</h2>
+                <div class="two-column">
+                    <div>
+                        <h3>Traditional Systems Analysis</h3>
+                        <ul>
+                            <li>40+ years of existence</li>
+                            <li>Focus on IT system requirements specification</li>
+                            <li>Technical modeling techniques (data, process, function)</li>
+                            <li>Detailed software requirements definition</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Relationship to Business Analysis</h3>
+                        <ul>
+                            <li><strong>Some organizations:</strong> Complete separation of BA and IT teams</li>
+                            <li><strong>Others:</strong> IT Business Analysts vs. "Business" Business Analysts</li>
+                            <li><strong>Agile environments:</strong> Close collaboration between BAs, users, and developers</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Core Business Analysis Work -->
+        <div class="slide">
+            <div class="content">
+                <h2>Core Business Analysis Activities</h2>
+                <ul>
+                    <li><strong>Localized Business Issues:</strong> Resolve specific problems and achieve targeted benefits</li>
+                    <li><strong>Broad Business Investigations:</strong> Extensive analysis of multiple issues for increased efficiency/effectiveness</li>
+                    <li><strong>IT System Enhancement:</strong> Focus on replacing/enhancing systems based on business requirements</li>
+                    <li><strong>Cross-functional Value Delivery:</strong> Senior BA work across workstreams with extensive stakeholder management</li>
+                </ul>
+                <div class="definition-box">
+                    <p><strong>Common Starting Point:</strong> Gaining understanding of the business situation, clarifying problems, and investigating root causes rather than symptoms</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: POPIT Model -->
+        <div class="slide">
+            <div class="content">
+                <h2>The POPIT Model: Holistic Business View</h2>
+                <div class="model-diagram">
+                    <div class="diagram-container">
+                        <div class="diagram-circle" style="background: linear-gradient(135deg, #ff6b6b, #ee5a24);">Processes</div>
+                        <div class="diagram-circle" style="background: linear-gradient(135deg, #4834d4, #686de0);">People</div>
+                        <div class="diagram-circle" style="background: linear-gradient(135deg, #00d2d3, #54a0ff);">Organisation</div>
+                        <div class="diagram-circle" style="background: linear-gradient(135deg, #ffa502, #ff6348);">Information & Technology</div>
+                    </div>
+                    <p style="color: #333;"><strong>All aspects and their interconnections must be considered</strong> to uncover problems and identify improvement opportunities</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Core BA Role Definition -->
+        <div class="slide">
+            <div class="content">
+                <h2>Core Business Analyst Role</h2>
+                <div class="definition-box">
+                    <h3>Official Definition</h3>
+                    <p><em>"An advisory role which has the responsibility for investigating and analysing business situations, identifying and evaluating options for improving business systems, elaborating and defining requirements, and ensuring the effective implementation and use of information systems in line with the needs of the business."</em></p>
+                </div>
+                <h3>Core Responsibilities</h3>
+                <ul>
+                    <li>Investigate business systems with holistic view</li>
+                    <li>Evaluate actions to improve business system operation</li>
+                    <li>Document business requirements for IT system support</li>
+                    <li>Elaborate requirements during evolutionary system development</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 14: BA Rationale & Extended Responsibilities -->
+        <div class="slide">
+            <div class="content">
+                <h2>The Rationale for Business Analysis</h2>
+                <ul>
+                    <li><strong>Root Causes Not Symptoms:</strong> Investigate root causes, consider holistic view</li>
+                    <li><strong>Business Improvement Not IT Change:</strong> IT enables opportunities, analyze business improvement, enable agility</li>
+                    <li><strong>Options Not Solutions:</strong> Challenge predetermined solutions, identify and evaluate options</li>
+                    <li><strong>Feasible Contributing Requirements:</strong> Consider constraints, evaluate against business needs</li>
+                    <li><strong>Entire Business Change Lifecycle:</strong> From analysis through post-implementation review</li>
+                    <li><strong>Negotiation Not Avoidance:</strong> Recognize and negotiate conflicting stakeholder views</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 15: Future & Conclusion -->
+        <div class="slide">
+            <div class="content">
+                <h2>The Future of Business Analysis</h2>
+                <div class="two-column">
+                    <div>
+                        <h3>Value Proposition</h3>
+                        <ul>
+                            <li>Assure delivery of business benefits</li>
+                            <li>Prevent unwise investments</li>
+                            <li>Challenge conventional wisdom</li>
+                            <li>Uncover root causes</li>
+                            <li>Bridge IT and business effectively</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Professional Development</h3>
+                        <ul>
+                            <li>Recognized qualifications (BCS, IIBA)</li>
+                            <li>Established standards and techniques</li>
+                            <li>Continuing professional development</li>
+                            <li>Professional bodies and communities</li>
+                            <li>Specialist discipline with significant organizational value</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" id="prev-btn" onclick="previousSlide()">Previous</button>
+            <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            
+            // Update navigation buttons
+            document.getElementById('prev-btn').disabled = currentSlide === 0;
+            document.getElementById('next-btn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSlide();
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
