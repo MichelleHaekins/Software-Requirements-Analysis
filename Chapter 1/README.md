@@ -50,12 +50,12 @@ Framework phân tích toàn diện hệ thống kinh doanh:
 ## 🎥 Tài liệu học tập
 
 ### Video bài giảng
-📹 **[Xem video bài giảng đầy đủ](https://github.com/ictu-software-engineering/Software-Requirements-Analysis/blob/main/Chapter%201/Demystifying_Business_Analysis.mp4)**
+📹 **[Xem video bài giảng đầy đủ](https://ictu-software-engineering.github.io/Software-Requirements-Analysis/Chapter%201/Demystifying_Business_Analysis.mp4)**
 
 Video này cung cấp phần trình bày chi tiết về toàn bộ nội dung chương 1, với các ví dụ thực tế và minh họa trực quan giúp bạn hiểu sâu hơn về Business Analysis.
 
 ### Bài thuyết trình tương tác
-🌐 **[Mở slides HTML tương tác](https://github.com/ictu-software-engineering/Software-Requirements-Analysis/blob/main/Chapter%201/chapter1_slides.html)**
+🌐 **[Mở slides HTML tương tác](https://ictu-software-engineering.github.io/Software-Requirements-Analysis/Chapter%201/chapter1_slides.html)**
 
 Slides HTML tương tác cho phép bạn:
 - Điều hướng linh hoạt qua các phần nội dung
